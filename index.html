@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IsBar Pro — AI Audio, Auto Cut & Motion Tools for Premiere Pro</title>
-  <meta name="description" content="The native Adobe Premiere Pro extension for creators and editors. Auto cut silence, drag-and-drop sound design waveforms, kinetic captions, and smart curves.">
+  <title>IsBar Pro — The Ultimate Adobe Premiere Pro Workflow Suite</title>
+  <meta name="description" content="The native Adobe Premiere Pro extension by Md Israfil Sharif. AI Auto Cut silence, Floating FX Console, 32 Smart Curves, Talking Head Presenter Studio, Waveform Drag & Drop, and AI B-Roll assembly.">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%230b120e'/><path d='M10 16c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6' stroke='%2310b981' stroke-width='2.5' fill='none' stroke-linecap='round'/><circle cx='16' cy='16' r='2' fill='%2334d399'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23060a08'/><path d='M8 16c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8' stroke='%2310b981' stroke-width='3' fill='none' stroke-linecap='round'/><circle cx='16' cy='16' r='2.5' fill='%2300e599'/></svg>">
 
-  <!-- Google Fonts: Montserrat & Inter -->
+  <!-- Google Fonts: Montserrat, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,22 +22,21 @@
 
   <style>
     /* ===============================================================
-       IsBar Design System (Inspired by Transcript Studio + IsBar Green)
-       Brand Palette: Obsidian Carbon + Emerald / Mint Neon + Amber Accents
+       IsBar Design System (Transcript Studio Aesthetic + Brand Green)
+       Brand Palette: Obsidian Carbon + Emerald / Mint Glow + Amber Accents
        =============================================================== */
     :root {
-      --bg: #060907;
-      --bg2: #0a0f0c;
-      --bg-card: #0d1511;
-      --bg-elevated: #121e18;
+      --bg: #050806;
+      --bg2: #090e0b;
+      --bg-card: #0c1410;
+      --bg-elevated: #111e17;
       --border: rgba(255, 255, 255, 0.08);
       --border-hover: rgba(16, 185, 129, 0.45);
       --text: #eaf3ed;
-      --text-dim: #94a89d;
-      --text-muted: #53695d;
+      --text-dim: #8fa599;
+      --text-muted: #52685c;
       --emerald: #10b981;
       --emerald-l: #34d399;
-      --emerald-bright: #6ee7b7;
       --emerald-mint: #00e599;
       --emerald-deep: #059669;
       --amber: #f59e0b;
@@ -47,9 +46,10 @@
       --shine: linear-gradient(110deg, #047857 0%, #10b981 22%, #ffffff 50%, #34d399 78%, #047857 100%);
       --disp: 'Montserrat', 'Inter', sans-serif;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
       --radius: 14px;
       --radius-lg: 22px;
-      --max-w: 1160px;
+      --max-w: 1200px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,42 +67,42 @@
     a:hover { color: var(--emerald-mint); }
     ::selection { background: rgba(16, 185, 129, 0.35); color: #fff; }
 
-    /* Ambient backdrop — cinematic green light leaks */
+    /* Ambient backdrop light leaks */
     .bg-fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
     .bg-fx::before,
     .bg-fx::after {
       content: '';
       position: absolute;
       border-radius: 50%;
-      filter: blur(95px);
+      filter: blur(100px);
       mix-blend-mode: screen;
       will-change: transform;
     }
     .bg-fx::before {
-      width: 55vw; height: 55vw; left: -16vw; top: -20vw;
+      width: 58vw; height: 58vw; left: -18vw; top: -22vw;
       background: radial-gradient(circle, rgba(16, 185, 129, 0.22), transparent 60%);
-      animation: leakDrift1 22s ease-in-out infinite;
+      animation: leakDrift1 24s ease-in-out infinite;
     }
     .bg-fx::after {
-      width: 48vw; height: 48vw; right: -12vw; top: 12vh;
-      background: radial-gradient(circle, rgba(0, 229, 153, 0.14), transparent 60%);
+      width: 48vw; height: 48vw; right: -14vw; top: 12vh;
+      background: radial-gradient(circle, rgba(0, 229, 153, 0.15), transparent 60%);
       animation: leakDrift2 28s ease-in-out infinite;
     }
     .bg-leak-low {
       position: absolute; border-radius: 50%;
-      width: 50vw; height: 50vw; left: 25vw; bottom: -28vw;
+      width: 52vw; height: 52vw; left: 24vw; bottom: -30vw;
       background: radial-gradient(circle, rgba(52, 211, 153, 0.12), transparent 60%);
-      filter: blur(95px); mix-blend-mode: screen; will-change: transform;
-      animation: leakDrift3 30s ease-in-out infinite;
+      filter: blur(100px); mix-blend-mode: screen; will-change: transform;
+      animation: leakDrift3 32s ease-in-out infinite;
     }
     .bg-grain {
-      position: absolute; inset: 0; opacity: 0.45;
+      position: absolute; inset: 0; opacity: 0.4;
       background-image:
         linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
       background-size: 56px 56px;
-      -webkit-mask-image: radial-gradient(circle at 50% 0%, #000, transparent 75%);
-      mask-image: radial-gradient(circle at 50% 0%, #000, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 50% 0%, #000, transparent 78%);
+      mask-image: radial-gradient(circle at 50% 0%, #000, transparent 78%);
     }
     @keyframes leakDrift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(6vw,5vh) scale(1.1); } }
     @keyframes leakDrift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-5vw,6vh) scale(1.08); } }
@@ -160,7 +160,7 @@
     /* Sticky Navbar */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(6, 9, 7, 0.72);
+      background: rgba(5, 8, 6, 0.76);
       backdrop-filter: blur(24px) saturate(160%);
       -webkit-backdrop-filter: blur(24px) saturate(160%);
       border-bottom: 1px solid var(--border);
@@ -184,8 +184,8 @@
       font-weight: 800; font-size: 18px; letter-spacing: -0.01em;
       color: var(--text);
     }
-    .nav-links { display: flex; align-items: center; gap: 28px; }
-    .nav-links a { color: var(--text-dim); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links { display: flex; align-items: center; gap: 26px; }
+    .nav-links a { color: var(--text-dim); font-size: 13.5px; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
 
     /* Hero */
@@ -214,7 +214,7 @@
 
     .hero h1 {
       font-family: var(--disp);
-      font-size: clamp(34px, 5.2vw, 66px);
+      font-size: clamp(34px, 5.2vw, 64px);
       font-weight: 900; line-height: 1.02;
       letter-spacing: -0.02em;
       text-transform: uppercase;
@@ -223,14 +223,14 @@
     .hero-sub {
       font-size: clamp(15px, 1.6vw, 17.5px);
       color: var(--text-dim);
-      max-width: 740px; margin: 0 auto 30px;
-      line-height: 1.6;
+      max-width: 780px; margin: 0 auto 30px;
+      line-height: 1.65;
     }
     .hero-sub strong { color: var(--text); font-weight: 600; }
     .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
 
     .hero-trust {
-      display: flex; gap: 26px; justify-content: center; flex-wrap: wrap;
+      display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
       margin-top: 26px;
       font-size: 13px; color: var(--text-muted);
     }
@@ -242,17 +242,17 @@
     .hero-visual::before {
       content: ''; position: absolute;
       left: 50%; top: 50%; transform: translate(-50%, -42%);
-      width: min(920px, 96vw); height: 75%;
+      width: min(940px, 96vw); height: 75%;
       background: radial-gradient(50% 50% at 50% 50%, rgba(16, 185, 129, 0.18), transparent 70%);
       filter: blur(65px);
       z-index: -1;
     }
     .hero-mockup {
-      background: #0b110e;
+      background: #090e0b;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      max-width: 960px; margin: 0 auto;
+      max-width: 1000px; margin: 0 auto;
       box-shadow:
         0 40px 110px rgba(0, 0, 0, 0.7),
         0 0 0 1px rgba(16, 185, 129, 0.15),
@@ -260,7 +260,7 @@
     }
     .mockup-header {
       padding: 12px 18px;
-      background: linear-gradient(180deg, #16221b, #0f1813);
+      background: linear-gradient(180deg, #131f17, #0d1510);
       border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       display: flex; align-items: center; gap: 8px;
     }
@@ -292,12 +292,12 @@
     /* Mockup Inner Navigation Tabs */
     .mockup-tabs {
       display: flex; gap: 4px; padding: 10px 16px;
-      background: #090e0b;
+      background: #070c09;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       overflow-x: auto;
     }
     .mockup-tab-btn {
-      padding: 7px 16px; border-radius: 8px; border: none;
+      padding: 8px 16px; border-radius: 8px; border: none;
       background: transparent; color: var(--text-dim);
       font-family: var(--disp); font-size: 11px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -333,7 +333,7 @@
     }
     .section-sub {
       color: var(--text-dim); font-size: 16px;
-      max-width: 580px; margin: 16px auto 0;
+      max-width: 620px; margin: 16px auto 0;
     }
 
     /* Marquee Strip */
@@ -348,7 +348,7 @@
       display: flex;
       gap: 16px;
       width: max-content;
-      animation: marqueeScroll 32s linear infinite;
+      animation: marqueeScroll 34s linear infinite;
     }
     @keyframes marqueeScroll { to { transform: translateX(-50%); } }
     .cap-strip:hover .cap-strip-track { animation-play-state: paused; }
@@ -356,7 +356,7 @@
     .cap-card {
       padding: 12px 22px;
       border-radius: 100px;
-      background: #0d1511;
+      background: #0c1410;
       border: 1px solid rgba(16, 185, 129, 0.2);
       color: var(--text);
       font-family: var(--disp); font-weight: 800; font-size: 13px;
@@ -378,7 +378,7 @@
       background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 45%), var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 34px;
+      padding: 32px;
       position: relative;
       overflow: hidden;
       transition: transform 0.28s, border-color 0.28s, box-shadow 0.28s;
@@ -417,6 +417,17 @@
       box-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
       color: var(--emerald-l);
     }
+
+    /* Tag pill inside cards */
+    .card-tag {
+      display: inline-block;
+      font-family: var(--disp); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .card-tag-green { background: rgba(16, 185, 129, 0.12); color: var(--emerald-l); border: 1px solid rgba(16, 185, 129, 0.25); }
+    .card-tag-amber { background: rgba(245, 158, 11, 0.12); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
 
     /* Steps (How it Works) */
     .how-it-works { max-width: var(--max-w); margin: 0 auto; }
@@ -554,7 +565,7 @@
     }
 
     /* FAQ */
-    .faq { max-width: 760px; margin: 0 auto; }
+    .faq { max-width: 780px; margin: 0 auto; }
     .faq-item {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -590,7 +601,7 @@
 
     /* Support Card */
     .support-panel {
-      max-width: 900px; margin: 0 auto;
+      max-width: 940px; margin: 0 auto;
       background:
         radial-gradient(70% 90% at 50% -20%, rgba(16, 185, 129, 0.12), transparent 60%),
         var(--bg-card);
@@ -605,7 +616,7 @@
     footer {
       border-top: 1px solid var(--border);
       padding: 50px 24px 30px;
-      background: #050806;
+      background: #040605;
     }
     .footer-inner {
       max-width: var(--max-w); margin: 0 auto;
@@ -626,6 +637,13 @@
       padding-top: 24px;
       display: flex; justify-content: space-between; font-size: 12.5px; color: var(--text-muted);
       flex-wrap: wrap; gap: 12px;
+    }
+
+    /* Floating FX Console Mockup Pill */
+    .fx-shortcut-key {
+      padding: 2px 7px; border-radius: 5px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      font-family: var(--mono); font-size: 10px; font-weight: 600; color: #fff;
     }
 
     /* Responsive */
@@ -663,14 +681,15 @@
         </span>
         <div class="flex flex-col">
           <span class="logo-text">IsBar</span>
-          <span class="text-[9px] uppercase tracking-widest font-mono text-emerald-400 font-bold">Premiere 26+</span>
+          <span class="text-[9px] uppercase tracking-widest font-mono text-emerald-400 font-bold">By Md Israfil Sharif</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
       <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#mockup">Auto Cut</a>
+        <a href="#workspaces">9 Workspaces</a>
+        <a href="#mockup">Interactive Panel</a>
+        <a href="#features">Full Capabilities</a>
         <a href="#how-it-works">Workflow</a>
         <a href="#requirements">Requirements</a>
         <a href="#pricing">Pricing</a>
@@ -681,7 +700,7 @@
       <div class="flex items-center gap-3">
         <!-- INSERT LEMON SQUEEZY / GUMROAD CHECKOUT LINK HERE -->
         <a href="#pricing" class="btn btn-primary btn-nav">
-          <span>Get Extension</span>
+          <span>Get IsBar Pro</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </a>
       </div>
@@ -691,17 +710,18 @@
   <!-- ==================== HERO SECTION ==================== -->
   <section class="hero">
     <div class="hero-badge">
-      <span>TALKING HEAD BETA · FOR ADOBE PREMIERE PRO</span>
+      <span>V0.18.7 BETA · BUILT FOR ADOBE PREMIERE PRO</span>
     </div>
 
     <h1>
-      Auto Cut Silence &amp; Sound Design<br>
-      <span class="shine">In Your Premiere Timeline</span>
+      The Ultimate Workflow Suite<br>
+      <span class="shine">Inside Adobe Premiere Pro</span>
     </h1>
 
     <p class="hero-sub">
-      Stop wasting hours manually cutting silent pauses, dragging sound effects, and tweaking keyframes. 
-      <strong>IsBar</strong> is the all-in-one native Premiere Pro panel engineered to accelerate your editing workflow by <strong>over 70%</strong>.
+      Engineered by <strong>Md Israfil Sharif</strong> to cut editing time by <strong>over 70%</strong>. 
+      From <strong>AI Talking Head Auto Cut</strong> and <strong>Floating FX Console</strong> to 
+      <strong>32 Smart Bézier Curves</strong>, <strong>MOGRT Captions</strong>, and <strong>AI B-Roll Assembly</strong>—9 powerhouse workspaces united in one native panel.
     </p>
 
     <!-- CTAs -->
@@ -709,11 +729,11 @@
       <!-- INSERT LEMON SQUEEZY / GUMROAD CHECKOUT LINK HERE -->
       <a href="#pricing" class="btn btn-primary btn-lg">
         <i data-lucide="download" class="w-4 h-4"></i>
-        <span>Get IsBar Pro</span>
+        <span>Get IsBar Pro — Lifetime License</span>
       </a>
       <a href="#mockup" class="btn btn-ghost btn-lg">
         <i data-lucide="play-circle" class="w-4 h-4"></i>
-        <span>Explore Interactive Panel</span>
+        <span>Test Live Panel Demo</span>
       </a>
     </div>
 
@@ -721,7 +741,7 @@
     <div class="hero-trust">
       <span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Natively Inside Premiere Pro
+        Native Premiere Pro CEP Panel
       </span>
       <span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -729,11 +749,11 @@
       </span>
       <span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        No Monthly Subscription Required
+        Perpetual License (No Subscription)
       </span>
       <span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Windows &amp; macOS (M1/M2/M3/Intel)
+        Windows 10/11 &amp; macOS
       </span>
     </div>
 
@@ -746,38 +766,42 @@
           <span class="dot yellow"></span>
           <span class="dot green"></span>
           <span class="mockup-title">
-            <span>IsBar Pro v26.0.2</span>
+            <span>IsBar Pro v0.18.7</span>
             <span class="text-neutral-500">|</span>
-            <span class="text-xs text-neutral-400 font-normal">Active Sequence: "Podcast_Interview_01.prproj"</span>
+            <span class="text-xs text-neutral-400 font-normal">Active Sequence: "TalkingHead_Podcast_Master.prproj"</span>
           </span>
-          <span class="mockup-live">Live Panel Demo</span>
+          <span class="mockup-live">Live Interactive Demo</span>
         </div>
 
         <!-- Interactive Switcher Tabs -->
         <div class="mockup-tabs">
           <button class="mockup-tab-btn active" onclick="switchMockupTab('autocut', this)">
             <i data-lucide="scissors" class="w-3.5 h-3.5"></i>
-            <span>Auto Cut (Talking Head)</span>
+            <span>Auto Cut &amp; Punch-In</span>
           </button>
-          <button class="mockup-tab-btn" onclick="switchMockupTab('sound', this)">
-            <i data-lucide="music" class="w-3.5 h-3.5"></i>
-            <span>Waveform Drag &amp; Drop</span>
-          </button>
-          <button class="mockup-tab-btn" onclick="switchMockupTab('captions', this)">
-            <i data-lucide="subtitles" class="w-3.5 h-3.5"></i>
-            <span>Kinetic Captions</span>
+          <button class="mockup-tab-btn" onclick="switchMockupTab('fxconsole', this)">
+            <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+            <span>Floating FX Console</span>
           </button>
           <button class="mockup-tab-btn" onclick="switchMockupTab('curves', this)">
             <i data-lucide="activity" class="w-3.5 h-3.5"></i>
-            <span>Smart Ease Curves</span>
+            <span>32 Smart Curves</span>
+          </button>
+          <button class="mockup-tab-btn" onclick="switchMockupTab('talkinghead', this)">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            <span>Talking Head Studio</span>
+          </button>
+          <button class="mockup-tab-btn" onclick="switchMockupTab('sound', this)">
+            <i data-lucide="music" class="w-3.5 h-3.5"></i>
+            <span>Audio &amp; AI B-Roll</span>
           </button>
         </div>
 
         <!-- Panel Body Recreating Image 2 -->
-        <div class="grid grid-cols-12 min-h-[460px] bg-[#0c120e] text-left">
+        <div class="grid grid-cols-12 min-h-[470px] bg-[#0b100d] text-left">
           
-          <!-- Left Sidebar Nav (Matching screenshot exactly) -->
-          <div class="col-span-3 sm:col-span-2 bg-[#090e0b] border-r border-white/[0.06] p-2 flex flex-col justify-between">
+          <!-- Left Sidebar Nav (Matching user screenshot) -->
+          <div class="col-span-3 sm:col-span-2 bg-[#070c09] border-r border-white/[0.06] p-2 flex flex-col justify-between">
             <div class="space-y-1">
               <!-- App Brand Pill -->
               <div class="px-2 py-2 mb-2 flex items-center gap-2 border-b border-white/[0.05]">
@@ -786,46 +810,42 @@
                 </div>
                 <div class="hidden sm:block">
                   <div class="text-[11px] font-bold text-white">IsBar</div>
-                  <div class="text-[9px] text-neutral-400">26.0.2</div>
+                  <div class="text-[9px] text-neutral-400">Premiere 26.0</div>
                 </div>
               </div>
 
-              <!-- Sidebar Items -->
-              <div class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
+              <!-- Sidebar Items from IsBar Guide -->
+              <div onclick="switchMockupTab('tools', null)" class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
                 <i data-lucide="briefcase" class="w-4 h-4"></i>
                 <span class="hidden sm:inline">Tools</span>
               </div>
-              <div class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
+              <div onclick="switchMockupTab('fxconsole', null)" class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
                 <i data-lucide="sliders" class="w-4 h-4"></i>
                 <span class="hidden sm:inline">Effects</span>
               </div>
-              <div class="mockup-side-item active px-2 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-2 text-xs font-semibold cursor-pointer">
+              <div onclick="switchMockupTab('autocut', null)" class="mockup-side-item active px-2 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-2 text-xs font-semibold cursor-pointer">
                 <i data-lucide="scissors" class="w-4 h-4 text-emerald-400"></i>
                 <span class="hidden sm:inline">Auto Cut</span>
               </div>
-              <div class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
+              <div onclick="switchMockupTab('curves', null)" class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
                 <i data-lucide="activity" class="w-4 h-4"></i>
                 <span class="hidden sm:inline">Curves</span>
               </div>
-              <div class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
+              <div onclick="switchMockupTab('captions', null)" class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
                 <i data-lucide="subtitles" class="w-4 h-4"></i>
                 <span class="hidden sm:inline">Captions</span>
               </div>
-              <div class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
-                <i data-lucide="box" class="w-4 h-4"></i>
-                <span class="hidden sm:inline">3D Studio</span>
+              <div onclick="switchMockupTab('talkinghead', null)" class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
+                <i data-lucide="user" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">Talking Head</span>
               </div>
-              <div class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
-                <i data-lucide="layers" class="w-4 h-4"></i>
-                <span class="hidden sm:inline">Arsenal</span>
-              </div>
-              <div class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
+              <div onclick="switchMockupTab('upscale', null)" class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
                 <i data-lucide="sparkles" class="w-4 h-4"></i>
                 <span class="hidden sm:inline">Upscale</span>
               </div>
-              <div class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
+              <div onclick="switchMockupTab('sound', null)" class="mockup-side-item px-2 py-1.5 rounded-lg text-neutral-400 hover:text-white flex items-center gap-2 text-xs cursor-pointer">
                 <i data-lucide="video" class="w-4 h-4"></i>
-                <span class="hidden sm:inline">Ai B roll</span>
+                <span class="hidden sm:inline">Ai B-Roll</span>
               </div>
             </div>
 
@@ -841,7 +861,7 @@
           <!-- Main Stage View Area -->
           <div class="col-span-9 sm:col-span-10 p-5 sm:p-7 relative overflow-hidden">
             
-            <!-- TAB 1: AUTO CUT VIEW (Matching Screenshot 2) -->
+            <!-- TAB 1: AUTO CUT + SMART PUNCH-IN VIEW (Matching Screenshot 2) -->
             <div id="view-autocut" class="space-y-5">
               
               <!-- Header tag row -->
@@ -852,10 +872,10 @@
                       TALKING HEAD BETA
                     </span>
                     <span class="text-[10px] text-neutral-400 bg-neutral-800/60 px-1.5 py-0.5 rounded">
-                      Preview
+                      Preview Active
                     </span>
                   </div>
-                  <h3 class="text-xl font-extrabold text-white tracking-tight">Auto Cut</h3>
+                  <h3 class="text-xl font-extrabold text-white tracking-tight">Auto Cut &amp; Smart Punch-In</h3>
                 </div>
                 <button class="p-1.5 rounded-lg bg-neutral-800/50 hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors" title="Reload Sequence">
                   <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
@@ -869,23 +889,12 @@
                 </div>
                 <div class="text-xs">
                   <span class="font-semibold text-white">Analyze active sequence</span>
-                  <p class="text-neutral-400 mt-0.5">IsBar temporarily exports the full timeline audio, starting at 00:00. No manual WAV export is required.</p>
+                  <p class="text-neutral-400 mt-0.5">IsBar temporarily exports the full timeline audio starting at 00:00. No manual WAV export is required.</p>
                 </div>
               </div>
 
-              <!-- WAV Fallback Box (dashed) -->
-              <div class="p-3 rounded-xl border border-dashed border-emerald-500/20 bg-emerald-950/10 text-xs flex items-center justify-between">
-                <div class="text-neutral-300">
-                  <span class="font-semibold text-emerald-400">WAV fallback</span>
-                  <span class="text-neutral-400 block text-[11px]">Optional: choose a previously exported 16-bit PCM WAV</span>
-                </div>
-                <button class="px-2.5 py-1 text-[11px] rounded bg-white/[0.05] hover:bg-white/[0.1] text-neutral-300 border border-white/[0.1]">
-                  Browse
-                </button>
-              </div>
-
-              <!-- Interactive Controls (Threshold, Min Silence, Padding) -->
-              <div class="grid grid-cols-3 gap-3">
+              <!-- Controls (Threshold, Min Silence, Padding, Punch-In) -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 <div class="bg-black/40 border border-white/[0.08] rounded-xl p-3">
                   <div class="flex justify-between text-[11px] text-neutral-400 mb-1">
                     <span>Threshold</span>
@@ -904,10 +913,24 @@
 
                 <div class="bg-black/40 border border-white/[0.08] rounded-xl p-3">
                   <div class="flex justify-between text-[11px] text-neutral-400 mb-1">
-                    <span>Speech padding</span>
+                    <span>Speech pad</span>
                     <span id="label-padding" class="font-mono text-emerald-400 font-bold">120 ms</span>
                   </div>
                   <input type="range" min="40" max="300" step="10" value="120" class="w-full accent-emerald-500 cursor-pointer" oninput="updateControls('padding', this.value)">
+                </div>
+
+                <!-- Smart Punch-in feature from Guide -->
+                <div class="bg-black/40 border border-emerald-500/20 rounded-xl p-3">
+                  <div class="flex justify-between text-[11px] text-neutral-400 mb-1">
+                    <span>Punch-In Zoom</span>
+                    <span class="font-mono text-emerald-400 font-bold">108%</span>
+                  </div>
+                  <div class="flex items-center gap-1 text-[10px]">
+                    <span class="px-1.5 py-0.5 rounded bg-black/60 text-neutral-400">106%</span>
+                    <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">108%</span>
+                    <span class="px-1.5 py-0.5 rounded bg-black/60 text-neutral-400">110%</span>
+                    <span class="px-1.5 py-0.5 rounded bg-black/60 text-neutral-400">114%</span>
+                  </div>
                 </div>
               </div>
 
@@ -940,24 +963,23 @@
               <!-- Secondary Button: Create edited sequence -->
               <button class="w-full py-2.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 font-semibold text-xs flex items-center justify-center gap-2 transition-colors">
                 <i data-lucide="copy-plus" class="w-3.5 h-3.5"></i>
-                <span>Create edited sequence</span>
+                <span>Create edited sequence (Duplicate Timeline)</span>
               </button>
 
               <!-- Interactive Cut Preview Bar -->
               <div class="space-y-1.5">
                 <div class="flex justify-between text-[11px]">
                   <span class="font-semibold text-white">Cut preview</span>
-                  <span class="text-neutral-400 text-[10px]">Timeline remains unchanged</span>
+                  <span class="text-neutral-400 text-[10px]">Alternating Punch-In active</span>
                 </div>
                 <div class="h-8 rounded-lg bg-black/50 border border-white/[0.08] p-1 flex items-center gap-1 overflow-hidden relative">
-                  <!-- Simulated cuts and speech waveforms -->
-                  <div class="h-full rounded bg-emerald-500/80 w-[14%] flex items-center justify-center text-[9px] text-black font-bold">Voice</div>
+                  <div class="h-full rounded bg-emerald-500/80 w-[15%] flex items-center justify-center text-[9px] text-black font-bold">100%</div>
                   <div class="h-full rounded bg-rose-500/30 border border-rose-500/50 w-[7%] flex items-center justify-center text-[8px] text-rose-300 font-mono">CUT</div>
-                  <div class="h-full rounded bg-emerald-500/80 w-[22%] flex items-center justify-center text-[9px] text-black font-bold">Voice</div>
-                  <div class="h-full rounded bg-rose-500/30 border border-rose-500/50 w-[9%] flex items-center justify-center text-[8px] text-rose-300 font-mono">CUT</div>
-                  <div class="h-full rounded bg-emerald-500/80 w-[18%] flex items-center justify-center text-[9px] text-black font-bold">Voice</div>
+                  <div class="h-full rounded bg-teal-400/80 w-[20%] flex items-center justify-center text-[9px] text-black font-bold">108%</div>
                   <div class="h-full rounded bg-rose-500/30 border border-rose-500/50 w-[8%] flex items-center justify-center text-[8px] text-rose-300 font-mono">CUT</div>
-                  <div class="h-full rounded bg-emerald-500/80 w-[22%] flex items-center justify-center text-[9px] text-black font-bold">Voice</div>
+                  <div class="h-full rounded bg-emerald-500/80 w-[18%] flex items-center justify-center text-[9px] text-black font-bold">100%</div>
+                  <div class="h-full rounded bg-rose-500/30 border border-rose-500/50 w-[9%] flex items-center justify-center text-[8px] text-rose-300 font-mono">CUT</div>
+                  <div class="h-full rounded bg-teal-400/80 w-[23%] flex items-center justify-center text-[9px] text-black font-bold">108%</div>
                 </div>
               </div>
 
@@ -967,18 +989,182 @@
               </p>
             </div>
 
-            <!-- TAB 2: WAVEFORM DRAG & DROP VIEW -->
+            <!-- TAB 2: FLOATING FX CONSOLE VIEW (From Feature Guide §3.3) -->
+            <div id="view-fxconsole" class="hidden space-y-5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="card-tag card-tag-green">WINDOWS POPUP &amp; SYSTEM TRAY</span>
+                  <h3 class="text-xl font-extrabold text-white">Floating FX Console</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-neutral-400">Global Shortcut:</span>
+                  <span class="fx-shortcut-key">Ctrl + &#96;</span>
+                </div>
+              </div>
+
+              <!-- Simulated Floating FX Console Window -->
+              <div class="bg-[#080d0a] border border-emerald-500/40 rounded-2xl p-5 shadow-2xl relative">
+                <!-- Search Box -->
+                <div class="flex items-center gap-3 bg-black/60 border border-emerald-500/50 rounded-xl px-4 py-3 text-sm">
+                  <i data-lucide="search" class="w-4 h-4 text-emerald-400"></i>
+                  <span class="text-white font-medium">Gaussian Blur</span>
+                  <span class="text-emerald-400 ml-auto text-xs font-mono">Enter to Apply</span>
+                </div>
+
+                <!-- Quick Slots Bar -->
+                <div class="mt-4 flex items-center justify-between text-xs border-b border-white/[0.06] pb-3">
+                  <span class="text-neutral-400">Quick Slots:</span>
+                  <div class="flex gap-2">
+                    <span class="text-neutral-300 bg-white/[0.05] px-2 py-1 rounded text-[11px]"><span class="text-emerald-400 font-bold">1</span> Lumetri</span>
+                    <span class="text-neutral-300 bg-white/[0.05] px-2 py-1 rounded text-[11px]"><span class="text-emerald-400 font-bold">2</span> Crop</span>
+                    <span class="text-neutral-300 bg-white/[0.05] px-2 py-1 rounded text-[11px]"><span class="text-emerald-400 font-bold">3</span> Transform</span>
+                    <span class="text-neutral-300 bg-white/[0.05] px-2 py-1 rounded text-[11px]"><span class="text-emerald-400 font-bold">4</span> Drop Shadow</span>
+                  </div>
+                </div>
+
+                <!-- Snapshot & Eyedropper Tools (From §3.4) -->
+                <div class="mt-4 grid grid-cols-3 gap-3">
+                  <div class="p-3 rounded-xl bg-black/30 border border-white/[0.08] text-xs">
+                    <div class="flex items-center gap-1.5 font-bold text-white mb-1">
+                      <i data-lucide="camera" class="w-3.5 h-3.5 text-emerald-400"></i>
+                      Frame Snapshot
+                    </div>
+                    <p class="text-[11px] text-neutral-400">Capture Program Monitor frame to PNG/JPEG in 1 click.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-black/30 border border-white/[0.08] text-xs">
+                    <div class="flex items-center gap-1.5 font-bold text-white mb-1">
+                      <i data-lucide="pipette" class="w-3.5 h-3.5 text-emerald-400"></i>
+                      Pixel Eyedropper
+                    </div>
+                    <p class="text-[11px] text-neutral-400">Sample exact HEX colour codes from any monitor pixel.</p>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-black/30 border border-white/[0.08] text-xs">
+                    <div class="flex items-center gap-1.5 font-bold text-white mb-1">
+                      <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
+                      Smart FX Control
+                    </div>
+                    <p class="text-[11px] text-neutral-400">Batch copy, paste, or clear applied effects across clips.</p>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-xs text-neutral-400 text-center">
+                Search and apply any native Premiere effect or 3rd-party plugin without moving your hands from the keyboard.
+              </p>
+            </div>
+
+            <!-- TAB 3: SMART CURVES VIEW (From Feature Guide §7) -->
+            <div id="view-curves" class="hidden space-y-5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="card-tag card-tag-green">32 BUILT-IN EASING PRESETS</span>
+                  <h3 class="text-xl font-extrabold text-white">Interactive Cubic Bézier Graph</h3>
+                </div>
+                <span class="text-xs font-mono text-emerald-400">Sampling: 9 Points</span>
+              </div>
+
+              <!-- Interactive Bézier Curve Visualizer -->
+              <div class="h-44 rounded-2xl bg-[#080d0a] border border-white/[0.1] relative p-4 flex items-center justify-center">
+                <svg viewBox="0 0 320 120" class="w-full h-full stroke-emerald-400 fill-none" stroke-width="3">
+                  <!-- Grid lines -->
+                  <line x1="20" y1="20" x2="300" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                  <line x1="20" y1="60" x2="300" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                  <line x1="20" y1="100" x2="300" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                  
+                  <!-- Cubic Bezier Curve: Ultra Whip -->
+                  <path d="M 20 100 C 120 100, 160 20, 300 20" />
+                  
+                  <!-- Control Points & Handles -->
+                  <circle cx="20" cy="100" r="5" fill="#10b981" />
+                  <circle cx="300" cy="20" r="5" fill="#34d399" />
+                  <line x1="20" y1="100" x2="120" y2="100" stroke="#52685c" stroke-dasharray="3,3" stroke-width="1.5"/>
+                  <line x1="300" y1="20" x2="160" y2="20" stroke="#52685c" stroke-dasharray="3,3" stroke-width="1.5"/>
+                  <circle cx="120" cy="100" r="4" fill="#f59e0b" />
+                  <circle cx="160" cy="20" r="4" fill="#f59e0b" />
+                </svg>
+                <div class="absolute bottom-3 left-4 text-[11px] font-mono text-emerald-400">
+                  Ultra Whip: (X1: 0.16, Y1: 1.0, X2: 0.30, Y2: 1.0)
+                </div>
+                <div class="absolute top-3 right-4 flex gap-1.5 text-[10px] font-mono">
+                  <span class="px-2 py-0.5 rounded bg-black/60 text-neutral-300 border border-white/[0.1]">Invert</span>
+                  <span class="px-2 py-0.5 rounded bg-black/60 text-neutral-300 border border-white/[0.1]">Reverse</span>
+                  <span class="px-2 py-0.5 rounded bg-black/60 text-neutral-300 border border-white/[0.1]">Reset</span>
+                </div>
+              </div>
+
+              <!-- Presets Grid -->
+              <div class="grid grid-cols-4 gap-2">
+                <button class="p-2 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-center text-xs font-bold text-emerald-300">Ultra Whip</button>
+                <button class="p-2 rounded-lg bg-black/40 border border-white/[0.08] text-center text-xs text-neutral-300">Elastic</button>
+                <button class="p-2 rounded-lg bg-black/40 border border-white/[0.08] text-center text-xs text-neutral-300">Fast Snap</button>
+                <button class="p-2 rounded-lg bg-black/40 border border-white/[0.08] text-center text-xs text-neutral-300">Heavy Inertia</button>
+              </div>
+            </div>
+
+            <!-- TAB 4: TALKING HEAD STUDIO (From Feature Guide §13) -->
+            <div id="view-talkinghead" class="hidden space-y-5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="card-tag card-tag-amber">HEADROOM INTEGRATION</span>
+                  <h3 class="text-xl font-extrabold text-white">Talking Head Presenter Studio</h3>
+                </div>
+                <span class="text-xs text-neutral-400">4 Pro Layouts</span>
+              </div>
+
+              <!-- Presenter Layout Mockup Frame -->
+              <div class="h-44 rounded-2xl bg-black border border-white/[0.1] relative p-4 flex items-center justify-between overflow-hidden">
+                <!-- Main Screen Presentation -->
+                <div class="w-[68%] h-full rounded-xl bg-neutral-900 border border-white/[0.06] p-3 flex flex-col justify-center">
+                  <div class="text-xs font-bold text-white flex items-center gap-2 mb-1">
+                    <i data-lucide="monitor" class="w-4 h-4 text-emerald-400"></i>
+                    Main Screen Recording / Tutorial
+                  </div>
+                  <div class="p-2 rounded bg-black/40 text-[11px] text-neutral-400 font-mono">
+                    Target Highlight Box Active [Outside Dim: 65%]
+                  </div>
+                </div>
+
+                <!-- PiP Presenter Headroom Circle with Animated Gradient Border -->
+                <div class="w-[28%] h-full flex flex-col items-center justify-center">
+                  <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-emerald-500 via-teal-300 to-amber-400 shadow-xl flex items-center justify-center">
+                    <div class="w-full h-full rounded-full bg-[#0e1612] flex items-center justify-center text-emerald-400">
+                      <i data-lucide="user" class="w-10 h-10"></i>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-mono text-emerald-400 mt-2 font-bold">Circle Layout</span>
+                </div>
+              </div>
+
+              <!-- 4 Feature Highlights from Headroom -->
+              <div class="grid grid-cols-3 gap-3 text-xs">
+                <div class="p-2.5 rounded-xl bg-black/30 border border-white/[0.08]">
+                  <span class="font-bold text-white block mb-0.5">Click-to-Target Zoom</span>
+                  <span class="text-neutral-400 text-[11px]">Quick 12f, Smooth 24f, Long 50f zooms</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-black/30 border border-white/[0.08]">
+                  <span class="font-bold text-white block mb-0.5">Region Highlight &amp; Pop</span>
+                  <span class="text-neutral-400 text-[11px]">Magnify and isolate code or UI buttons</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-black/30 border border-white/[0.08]">
+                  <span class="font-bold text-white block mb-0.5">Sequence Checkpoints</span>
+                  <span class="text-neutral-400 text-[11px]">Sequence-level Undo &amp; Redo revision tracking</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 5: AUDIO & AI B-ROLL (From Feature Guide §10 & §12) -->
             <div id="view-sound" class="hidden space-y-5">
               <div class="flex items-center justify-between">
                 <div>
-                  <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20">
-                    SOUND DESIGN
-                  </span>
-                  <h3 class="text-xl font-extrabold text-white mt-1">Waveform Drag &amp; Drop</h3>
+                  <span class="card-tag card-tag-green">LOCAL LIBRARY &amp; AI ASSEMBLY</span>
+                  <h3 class="text-xl font-extrabold text-white">Waveform Box Drag &amp; AI B-Roll</h3>
                 </div>
-                <span class="text-xs text-neutral-400">Box selection enabled</span>
+                <span class="text-xs text-neutral-400">WAV, MP3, FLAC, AIFF</span>
               </div>
 
+              <!-- Waveform Box Selection Area -->
               <div class="bg-black/40 border border-emerald-500/30 rounded-2xl p-4 space-y-3">
                 <div class="flex items-center justify-between text-xs text-neutral-300">
                   <span class="font-bold text-white flex items-center gap-1.5">
@@ -988,10 +1174,8 @@
                   <span class="font-mono text-emerald-400">00:04.200</span>
                 </div>
 
-                <!-- Interactive Waveform Area -->
-                <div class="h-28 rounded-xl bg-[#080d0a] border border-white/[0.08] relative overflow-hidden flex items-center px-4">
-                  <!-- Waveform bars -->
-                  <div class="w-full flex items-center justify-between gap-[3px] h-16 opacity-60">
+                <div class="h-24 rounded-xl bg-[#080d0a] border border-white/[0.08] relative overflow-hidden flex items-center px-4">
+                  <div class="w-full flex items-center justify-between gap-[3px] h-14 opacity-60">
                     <div class="w-1 bg-emerald-600 h-4 rounded"></div>
                     <div class="w-1 bg-emerald-600 h-8 rounded"></div>
                     <div class="w-1 bg-emerald-600 h-14 rounded"></div>
@@ -1004,101 +1188,21 @@
                     <div class="w-1 bg-emerald-500 h-5 rounded"></div>
                     <div class="w-1 bg-emerald-600 h-11 rounded"></div>
                     <div class="w-1 bg-emerald-600 h-15 rounded"></div>
-                    <div class="w-1 bg-emerald-500 h-9 rounded"></div>
-                    <div class="w-1 bg-emerald-500 h-4 rounded"></div>
                   </div>
 
                   <!-- Selected Box Area -->
-                  <div class="absolute inset-y-2 left-[25%] width-[50%] right-[25%] bg-emerald-500/20 border-2 border-dashed border-emerald-400 rounded-lg flex items-center justify-between px-3 cursor-grab hover:bg-emerald-500/30 transition-colors">
+                  <div class="absolute inset-y-2 left-[25%] right-[25%] bg-emerald-500/20 border-2 border-dashed border-emerald-400 rounded-lg flex items-center justify-between px-3 cursor-grab hover:bg-emerald-500/30 transition-colors">
                     <span class="text-[10px] font-mono text-emerald-300 font-bold">[ IN: 01.05s ]</span>
                     <span class="text-xs font-bold text-white bg-black/60 px-2 py-0.5 rounded shadow">DRAG TO TIMELINE</span>
                     <span class="text-[10px] font-mono text-emerald-300 font-bold">[ OUT: 03.15s ]</span>
                   </div>
                 </div>
 
-                <div class="flex items-center justify-between text-xs text-neutral-400">
-                  <span>Use cursor box to select exact In/Out range</span>
-                  <span class="text-emerald-400 font-semibold">Ready to drop on Audio Track 2</span>
+                <!-- AI B-Roll Pipeline Notice (From §12) -->
+                <div class="p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/20 text-[11px] text-emerald-300 flex items-center justify-between">
+                  <span><strong>AI B-Roll Workflow:</strong> SRT Cues &rarr; LLM Visual Plan &rarr; Pexels/FlexClip &rarr; Video Track 2</span>
+                  <span class="font-mono text-[10px] bg-black/40 px-2 py-0.5 rounded text-neutral-400">MCP Connected</span>
                 </div>
-              </div>
-
-              <div class="grid grid-cols-3 gap-3">
-                <button class="p-3 rounded-xl bg-black/30 border border-white/[0.08] hover:border-emerald-500/40 text-left text-xs transition-colors">
-                  <div class="font-bold text-white mb-0.5">Impacts &amp; Hits</div>
-                  <div class="text-[11px] text-neutral-400">120+ Studio SFX</div>
-                </button>
-                <button class="p-3 rounded-xl bg-black/30 border border-white/[0.08] hover:border-emerald-500/40 text-left text-xs transition-colors">
-                  <div class="font-bold text-white mb-0.5">Whooshes &amp; Risers</div>
-                  <div class="text-[11px] text-neutral-400">95+ Transitions</div>
-                </button>
-                <button class="p-3 rounded-xl bg-black/30 border border-white/[0.08] hover:border-emerald-500/40 text-left text-xs transition-colors">
-                  <div class="font-bold text-white mb-0.5">Foley &amp; Ambient</div>
-                  <div class="text-[11px] text-neutral-400">200+ Textures</div>
-                </button>
-              </div>
-            </div>
-
-            <!-- TAB 3: KINETIC CAPTIONS VIEW -->
-            <div id="view-captions" class="hidden space-y-5">
-              <div class="flex items-center justify-between">
-                <div>
-                  <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20">
-                    AUTOMATIC SUBTITLES
-                  </span>
-                  <h3 class="text-xl font-extrabold text-white mt-1">Kinetic Captions &amp; SFX</h3>
-                </div>
-                <span class="text-xs text-neutral-400">Synced to Speech</span>
-              </div>
-
-              <!-- Subtitle Preview Video/Frame -->
-              <div class="h-44 rounded-2xl bg-black border border-white/[0.1] relative overflow-hidden flex flex-col items-center justify-center p-6 text-center">
-                <div class="text-2xl sm:text-3xl font-black font-montserrat uppercase tracking-tight text-white leading-tight">
-                  "Cut your editing time <br>
-                  <span class="text-emerald-400 underline decoration-emerald-500/50 decoration-4">BY OVER 70%</span>"
-                </div>
-                <div class="mt-4 flex items-center gap-2">
-                  <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">Auto Pop</span>
-                  <span class="text-[10px] font-mono bg-white/[0.1] text-neutral-300 px-2 py-0.5 rounded">Synced Click SFX</span>
-                  <span class="text-[10px] font-mono bg-white/[0.1] text-neutral-300 px-2 py-0.5 rounded">ProRes Alpha</span>
-                </div>
-              </div>
-
-              <!-- Styles Strip -->
-              <div class="grid grid-cols-4 gap-2">
-                <div class="p-2.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-center text-xs font-bold text-emerald-300">Cinematic</div>
-                <div class="p-2.5 rounded-lg bg-black/40 border border-white/[0.08] text-center text-xs text-neutral-300">Impact</div>
-                <div class="p-2.5 rounded-lg bg-black/40 border border-white/[0.08] text-center text-xs text-neutral-300">Neon Glow</div>
-                <div class="p-2.5 rounded-lg bg-black/40 border border-white/[0.08] text-center text-xs text-neutral-300">Bouncy</div>
-              </div>
-            </div>
-
-            <!-- TAB 4: SMART CURVES VIEW -->
-            <div id="view-curves" class="hidden space-y-5">
-              <div class="flex items-center justify-between">
-                <div>
-                  <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20">
-                    MOTION DESIGN
-                  </span>
-                  <h3 class="text-xl font-extrabold text-white mt-1">Smart Keyframe Curves</h3>
-                </div>
-                <span class="text-xs text-neutral-400">1-Click Ease Interpolation</span>
-              </div>
-
-              <div class="h-44 rounded-2xl bg-black border border-white/[0.1] relative p-4 flex items-center justify-center">
-                <svg viewBox="0 0 300 120" class="w-full h-full stroke-emerald-400 fill-none" stroke-width="3">
-                  <path d="M 20 100 C 120 100, 160 20, 280 20" />
-                  <circle cx="20" cy="100" r="5" fill="#10b981" />
-                  <circle cx="280" cy="20" r="5" fill="#34d399" />
-                  <line x1="20" y1="100" x2="120" y2="100" stroke="#52665b" stroke-dasharray="3,3" stroke-width="1.5"/>
-                  <line x1="280" y1="20" x2="160" y2="20" stroke="#52665b" stroke-dasharray="3,3" stroke-width="1.5"/>
-                </svg>
-                <div class="absolute bottom-3 left-4 text-[11px] font-mono text-emerald-400">Ease Out Expo (0.16, 1.0, 0.3, 1.0)</div>
-              </div>
-
-              <div class="grid grid-cols-3 gap-2">
-                <button class="p-2.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-center text-xs font-bold text-emerald-300">Smooth Whip</button>
-                <button class="p-2.5 rounded-lg bg-black/40 border border-white/[0.08] text-center text-xs text-neutral-300">Elastic Bounce</button>
-                <button class="p-2.5 rounded-lg bg-black/40 border border-white/[0.08] text-center text-xs text-neutral-300">Overshoot Snap</button>
               </div>
             </div>
 
@@ -1112,108 +1216,151 @@
   <div class="cap-strip">
     <div class="cap-strip-track">
       <!-- Set 1 -->
-      <div class="cap-card"><i data-lucide="scissors" class="w-4 h-4"></i> Auto Cut Talking Heads</div>
-      <div class="cap-card"><i data-lucide="music" class="w-4 h-4"></i> Waveform Drag &amp; Drop</div>
-      <div class="cap-card"><i data-lucide="subtitles" class="w-4 h-4"></i> Kinetic Captions</div>
-      <div class="cap-card"><i data-lucide="activity" class="w-4 h-4"></i> Smart Ease Curves</div>
-      <div class="cap-card"><i data-lucide="shield-check" class="w-4 h-4"></i> 100% Safe Duplicate</div>
-      <div class="cap-card"><i data-lucide="zap" class="w-4 h-4"></i> Offline Local Processing</div>
-      <div class="cap-card"><i data-lucide="video" class="w-4 h-4"></i> AI B-Roll Sourcing</div>
+      <div class="cap-card"><i data-lucide="scissors" class="w-4 h-4"></i> Auto Cut Silence</div>
+      <div class="cap-card"><i data-lucide="maximize" class="w-4 h-4"></i> Smart Punch-In (106%-114%)</div>
+      <div class="cap-card"><i data-lucide="terminal" class="w-4 h-4"></i> Floating FX Console (Ctrl+`)</div>
+      <div class="cap-card"><i data-lucide="activity" class="w-4 h-4"></i> 32 Bézier Ease Curves</div>
+      <div class="cap-card"><i data-lucide="subtitles" class="w-4 h-4"></i> SRT MOGRT Captions</div>
+      <div class="cap-card"><i data-lucide="music" class="w-4 h-4"></i> Waveform Box Drag &amp; Drop</div>
+      <div class="cap-card"><i data-lucide="user" class="w-4 h-4"></i> Presenter PiP Studio</div>
+      <div class="cap-card"><i data-lucide="camera" class="w-4 h-4"></i> Frame Snapshot &amp; Eyedropper</div>
+      <div class="cap-card"><i data-lucide="video" class="w-4 h-4"></i> AI B-Roll Assembly (Track 2)</div>
+      <div class="cap-card"><i data-lucide="layout" class="w-4 h-4"></i> 1-Click 4K &amp; Vertical Sequences</div>
+      <div class="cap-card"><i data-lucide="shield-check" class="w-4 h-4"></i> 100% Non-Destructive Duplicate</div>
       <!-- Set 2 (Loop) -->
-      <div class="cap-card" aria-hidden="true"><i data-lucide="scissors" class="w-4 h-4"></i> Auto Cut Talking Heads</div>
-      <div class="cap-card" aria-hidden="true"><i data-lucide="music" class="w-4 h-4"></i> Waveform Drag &amp; Drop</div>
-      <div class="cap-card" aria-hidden="true"><i data-lucide="subtitles" class="w-4 h-4"></i> Kinetic Captions</div>
-      <div class="cap-card" aria-hidden="true"><i data-lucide="activity" class="w-4 h-4"></i> Smart Ease Curves</div>
-      <div class="cap-card" aria-hidden="true"><i data-lucide="shield-check" class="w-4 h-4"></i> 100% Safe Duplicate</div>
-      <div class="cap-card" aria-hidden="true"><i data-lucide="zap" class="w-4 h-4"></i> Offline Local Processing</div>
-      <div class="cap-card" aria-hidden="true"><i data-lucide="video" class="w-4 h-4"></i> AI B-Roll Sourcing</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="scissors" class="w-4 h-4"></i> Auto Cut Silence</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="maximize" class="w-4 h-4"></i> Smart Punch-In (106%-114%)</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="terminal" class="w-4 h-4"></i> Floating FX Console (Ctrl+`)</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="activity" class="w-4 h-4"></i> 32 Bézier Ease Curves</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="subtitles" class="w-4 h-4"></i> SRT MOGRT Captions</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="music" class="w-4 h-4"></i> Waveform Box Drag &amp; Drop</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="user" class="w-4 h-4"></i> Presenter PiP Studio</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="camera" class="w-4 h-4"></i> Frame Snapshot &amp; Eyedropper</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="video" class="w-4 h-4"></i> AI B-Roll Assembly (Track 2)</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="layout" class="w-4 h-4"></i> 1-Click 4K &amp; Vertical Sequences</div>
+      <div class="cap-card" aria-hidden="true"><i data-lucide="shield-check" class="w-4 h-4"></i> 100% Non-Destructive Duplicate</div>
     </div>
   </div>
 
-  <!-- ==================== BENTO FEATURES ==================== -->
-  <section id="features" class="features">
+  <!-- ==================== THE 9 WORKSPACES (DETAILED BREAKDOWN) ==================== -->
+  <section id="workspaces" class="features">
     <div class="section-header">
-      <div class="section-badge">Capabilities</div>
-      <h2>Engineered for High-Speed Editing</h2>
-      <p class="section-sub">Everything you need to turn raw footage into YouTube, social, and commercial gold in minutes.</p>
+      <div class="section-badge">The Complete Suite</div>
+      <h2>9 Powerhouse Workspaces</h2>
+      <p class="section-sub">Detailed breakdown of everything IsBar provides to accelerate your editing pipeline.</p>
     </div>
 
     <div class="bento">
-      <!-- Bento 1 (Span 7) - Auto Cut -->
+      <!-- 1. Auto Cut & Smart Punch-In -->
       <div class="bento-card bento-lg">
-        <div class="feature-icon">
-          <i data-lucide="scissors" class="w-6 h-6"></i>
-        </div>
-        <h3>AI Talking Head Auto Cut</h3>
+        <span class="card-tag card-tag-green">WORKSPACE 01</span>
+        <div class="feature-icon"><i data-lucide="scissors" class="w-6 h-6"></i></div>
+        <h3>AI Talking Head Auto Cut &amp; Smart Punch-In</h3>
         <p>
-          Detects silent pauses, breaths, and dead air across your entire sequence automatically. 
-          Set your threshold, minimum silence, and speech padding with live visual feedback, then generate a razor-sharp cut with a single click.
+          IsBar exports the active sequence audio in seconds and identifies silent pauses using customizable Threshold (−42 dB), Minimum Silence (350 ms), and Speech Padding (120 ms). 
+          Plus, the <strong>Smart Punch-In</strong> engine alternates subtle zoom levels (106%, 108%, 110%, 114%) across dialogue cuts to create professional visual rhythm.
         </p>
-        <div class="mt-6 p-4 rounded-xl bg-black/40 border border-white/[0.06] flex items-center justify-between text-xs">
-          <span class="text-neutral-400">Average time saved on 20-min talking head:</span>
-          <span class="font-bold text-emerald-400 font-mono text-sm">~45 minutes</span>
+        <div class="mt-4 flex items-center gap-3 text-xs text-neutral-400">
+          <span class="text-emerald-400 font-bold font-mono">100% Non-Destructive:</span> Always generates a safety duplicate timeline.
         </div>
       </div>
 
-      <!-- Bento 2 (Span 5) - Waveform Drag & Drop -->
+      <!-- 2. Floating FX Console -->
       <div class="bento-card bento-md">
-        <div class="feature-icon">
-          <i data-lucide="music" class="w-6 h-6"></i>
-        </div>
+        <span class="card-tag card-tag-green">WORKSPACE 02</span>
+        <div class="feature-icon"><i data-lucide="terminal" class="w-6 h-6"></i></div>
+        <h3>Floating FX Console &amp; Quick Slots</h3>
+        <p>
+          A lightweight global search popup that opens with your custom shortcut. Search and apply any native Premiere effect or 3rd-party plugin instantly. Includes Ctrl + 1...9 quick slots, custom aliases, and snapshot pixel color eyedropper.
+        </p>
+      </div>
+
+      <!-- 3. Smart Curves & Bezier Graph -->
+      <div class="bento-card bento-sm">
+        <span class="card-tag card-tag-green">WORKSPACE 03</span>
+        <div class="feature-icon"><i data-lucide="activity" class="w-5 h-5"></i></div>
+        <h3>32 Smart Easing Curves</h3>
+        <p>
+          Interactive cubic Bézier curve editor with draggable handles, sampling quality (5, 7, 9 points), and 32 presets (Ultra Whip, Elastic, Fast Snap, Heavy Inertia).
+        </p>
+      </div>
+
+      <!-- 4. Smart Motion (7 Presets) -->
+      <div class="bento-card bento-sm">
+        <span class="card-tag card-tag-green">WORKSPACE 04</span>
+        <div class="feature-icon"><i data-lucide="move" class="w-5 h-5"></i></div>
+        <h3>Smart Motion (7 Presets)</h3>
+        <p>
+          Instant entrance and exit animations: Fade In, Slide Left/Right/Up/Down, Scale Pop (80&rarr;105&rarr;100%), and Blur Fade. Click for entrance, Alt+Click for matching exit.
+        </p>
+      </div>
+
+      <!-- 5. Talking Head Studio -->
+      <div class="bento-card bento-sm">
+        <span class="card-tag card-tag-amber">WORKSPACE 05</span>
+        <div class="feature-icon"><i data-lucide="user" class="w-5 h-5"></i></div>
+        <h3>Talking Head Studio (Headroom)</h3>
+        <p>
+          Click-to-target smooth zooms (12f, 24f, 50f), Region Highlight &amp; Pop with outside dimming, and customizable Presenter PiP layouts with animated gradient borders.
+        </p>
+      </div>
+
+      <!-- 6. Captions: MOGRT Generator & Restyler -->
+      <div class="bento-card bento-sm">
+        <span class="card-tag card-tag-green">WORKSPACE 06</span>
+        <div class="feature-icon"><i data-lucide="subtitles" class="w-5 h-5"></i></div>
+        <h3>MOGRT Captions &amp; Restyler</h3>
+        <p>
+          Transform UTF-8 SRT subtitles into animated MOGRT caption tracks (Single or Double line). Copy styling properties across subtitle tracks while preserving text and timing.
+        </p>
+      </div>
+
+      <!-- 7. Local Audio Library & Waveform Box Drag -->
+      <div class="bento-card bento-sm">
+        <span class="card-tag card-tag-green">WORKSPACE 07</span>
+        <div class="feature-icon"><i data-lucide="music" class="w-5 h-5"></i></div>
         <h3>Waveform Drag &amp; Drop</h3>
         <p>
-          No more manual In and Out bracket hunting. Select any audio portion with an intuitive visual box selector and drag it directly onto your Premiere Pro audio tracks.
+          Catalog your local sound effects and music (WAV, MP3, FLAC, AIFF). Select any range using an intuitive visual box selector and drag it straight to Audio Track 2!
         </p>
-        <div class="mt-6 p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 text-xs text-emerald-300 flex items-center gap-2">
-          <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-          <span>Direct timeline drag integration</span>
-        </div>
       </div>
 
-      <!-- Bento 3 (Span 4) - Kinetic Captions -->
+      <!-- 8. AI B-Roll Assembly & MCP Bridge -->
       <div class="bento-card bento-sm">
-        <div class="feature-icon">
-          <i data-lucide="subtitles" class="w-5 h-5"></i>
-        </div>
-        <h3>Kinetic Captions</h3>
-        <p>Generate broadcast-grade, word-synced subtitles with punchy entrance pops, glow accents, and automatic sound effects.</p>
+        <span class="card-tag card-tag-green">WORKSPACE 08</span>
+        <div class="feature-icon"><i data-lucide="video" class="w-5 h-5"></i></div>
+        <h3>AI B-Roll &amp; Stock Assembly</h3>
+        <p>
+          Turn SRT cues into visual search plans. Integrates with Ollama, LM Studio, OpenRouter, and Pexels/FlexClip. Includes an MCP bridge for autonomous AI assistants!
+        </p>
       </div>
 
-      <!-- Bento 4 (Span 4) - Smart Curves -->
-      <div class="bento-card bento-sm">
-        <div class="feature-icon">
-          <i data-lucide="activity" class="w-5 h-5"></i>
-        </div>
-        <h3>Smart Ease Curves</h3>
-        <p>Apply buttery-smooth bezier curves, whip pans, and elastic snap easing without ever fighting Premiere's clunky speed graphs.</p>
-      </div>
-
-      <!-- Bento 5 (Span 4) - AI B-Roll -->
-      <div class="bento-card bento-sm">
-        <div class="feature-icon">
-          <i data-lucide="video" class="w-5 h-5"></i>
-        </div>
-        <h3>AI B-Roll &amp; Audio</h3>
-        <p>Automatically match relevant B-roll footage and curated sound effects directly to speech timestamps on Video Track 2.</p>
-      </div>
-
-      <!-- Bento 6 (Full Width) - Safety Notice -->
+      <!-- 9. Tools & Sequence Utilities (Full Width) -->
       <div class="bento-card bento-full">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center flex-shrink-0">
-              <i data-lucide="shield-check" class="w-6 h-6"></i>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div>
+            <div class="text-emerald-400 font-bold text-sm mb-1 flex items-center gap-1.5">
+              <i data-lucide="layout" class="w-4 h-4"></i> 1-Click Sequence Builder
             </div>
-            <div>
-              <h3 class="text-lg font-bold text-white mb-1">100% Non-Destructive Workflow</h3>
-              <p class="text-neutral-400 text-sm">Your original timeline sequence is always preserved intact. IsBar creates and edits a clean duplicate sequence every time.</p>
-            </div>
+            <p class="text-neutral-400 text-xs">Create Horizontal (1080p/4K) and Vertical Reels (1080x1920/4K) in one single click.</p>
           </div>
-          <div class="flex-shrink-0">
-            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-black/50 border border-white/[0.08] text-xs font-mono text-emerald-400">
-              <i data-lucide="lock" class="w-3.5 h-3.5"></i>
-              Original Sequence Safe
-            </span>
+          <div>
+            <div class="text-emerald-400 font-bold text-sm mb-1 flex items-center gap-1.5">
+              <i data-lucide="clipboard" class="w-4 h-4"></i> Smart Paste
+            </div>
+            <p class="text-neutral-400 text-xs">Instantly paste Windows clipboard screenshots into your timeline as 3-second graphics.</p>
+          </div>
+          <div>
+            <div class="text-emerald-400 font-bold text-sm mb-1 flex items-center gap-1.5">
+              <i data-lucide="image" class="w-4 h-4"></i> Remove.bg Cutouts
+            </div>
+            <p class="text-neutral-400 text-xs">Remove backgrounds from any still frame or screenshot with 1-click API integration.</p>
+          </div>
+          <div>
+            <div class="text-emerald-400 font-bold text-sm mb-1 flex items-center gap-1.5">
+              <i data-lucide="folder" class="w-4 h-4"></i> Project Organizer
+            </div>
+            <p class="text-neutral-400 text-xs">Auto-sort loose timeline assets into dedicated Video, Audio, Graphics, and Sequence bins.</p>
           </div>
         </div>
       </div>
@@ -1231,28 +1378,28 @@
       <div class="step">
         <div class="step-number">01</div>
         <h3>Open IsBar</h3>
-        <p>Launch the IsBar panel directly from Premiere Pro Window &gt; Extensions. No external applications needed.</p>
+        <p>Launch IsBar directly from Premiere Pro Window &gt; Extensions. No heavy cloud setups needed.</p>
         <span class="step-time">Instant</span>
       </div>
 
       <div class="step">
         <div class="step-number">02</div>
         <h3>Analyze</h3>
-        <p>Click "Analyze active sequence". IsBar automatically evaluates waveform peaks and silence intervals from 00:00.</p>
+        <p>Click "Analyze active sequence". IsBar automatically evaluates speech peaks and dead air from 00:00.</p>
         <span class="step-time">Under 5s</span>
       </div>
 
       <div class="step">
         <div class="step-number">03</div>
         <h3>Fine-Tune</h3>
-        <p>Tweak silence threshold and speech padding with live visual cut indicators on the waveform preview.</p>
+        <p>Adjust silence threshold, min silence, and punch-in zoom with live cut indicators on the waveform preview.</p>
         <span class="step-time">Real-time</span>
       </div>
 
       <div class="step">
         <div class="step-number">04</div>
         <h3>Cut &amp; Polish</h3>
-        <p>Hit "Create edited sequence". Drop sound effects and kinetic captions right onto your new duplicate timeline.</p>
+        <p>Hit "Create edited sequence". Drop sound effects, kinetic captions, and easing curves onto your duplicate timeline.</p>
         <span class="step-time">1-Click</span>
       </div>
     </div>
@@ -1263,24 +1410,20 @@
     <div class="section-header">
       <div class="section-badge">Compatibility</div>
       <h2>System Requirements</h2>
-      <p class="section-sub">Built natively for Premiere Pro editors on modern operating systems.</p>
+      <p class="section-sub">Engineered natively for Premiere Pro editors on modern operating systems.</p>
     </div>
 
     <div class="req-grid">
       <div class="req-item">
-        <div class="req-icon">
-          <i data-lucide="monitor" class="w-5 h-5"></i>
-        </div>
+        <div class="req-icon"><i data-lucide="monitor" class="w-5 h-5"></i></div>
         <div>
-          <strong>Windows 10/11 or macOS</strong>
+          <strong>Windows 10/11 &amp; macOS</strong>
           <p>Full support for Apple Silicon (M1/M2/M3/M4) &amp; Intel</p>
         </div>
       </div>
 
       <div class="req-item">
-        <div class="req-icon">
-          <i data-lucide="layers" class="w-5 h-5"></i>
-        </div>
+        <div class="req-icon"><i data-lucide="layers" class="w-5 h-5"></i></div>
         <div>
           <strong>Adobe Premiere Pro</strong>
           <p>Compatible with Premiere Pro 2024, 2025, and 2026</p>
@@ -1288,22 +1431,18 @@
       </div>
 
       <div class="req-item">
-        <div class="req-icon">
-          <i data-lucide="cpu" class="w-5 h-5"></i>
-        </div>
+        <div class="req-icon"><i data-lucide="cpu" class="w-5 h-5"></i></div>
         <div>
           <strong>Hardware Specs</strong>
-          <p>8 GB RAM minimum (16 GB recommended for 4K)</p>
+          <p>8 GB RAM minimum (16 GB recommended for 4K workflows)</p>
         </div>
       </div>
 
       <div class="req-item">
-        <div class="req-icon">
-          <i data-lucide="hard-drive" class="w-5 h-5"></i>
-        </div>
+        <div class="req-icon"><i data-lucide="hard-drive" class="w-5 h-5"></i></div>
         <div>
           <strong>Local Execution</strong>
-          <p>Zero external heavy cloud queues. Fast local processing.</p>
+          <p>Runs natively inside Premiere Pro. Zero monthly cloud queues.</p>
         </div>
       </div>
     </div>
@@ -1328,10 +1467,11 @@
         
         <ul class="pricing-features">
           <li>Core Auto Cut for talking heads</li>
-          <li>WAV audio silence detection</li>
           <li>100% Non-destructive safety duplicate</li>
-          <li>Waveform zoom and preview</li>
-          <li>Basic sound library access</li>
+          <li>Smart Motion (7 entrance &amp; exit presets)</li>
+          <li>1-Click Horizontal &amp; Vertical Sequence builder</li>
+          <li>Smart Paste &amp; Project Organizer</li>
+          <li>Waveform zoom &amp; cut preview</li>
           <li>Lifetime minor updates</li>
         </ul>
 
@@ -1348,16 +1488,19 @@
         <div class="pricing-price">
           <span class="text-2xl align-top text-emerald-400">$</span>49
         </div>
-        <p class="text-xs text-neutral-400 mt-1">One-time payment. Complete creator toolkit.</p>
+        <p class="text-xs text-neutral-400 mt-1">One-time payment. Complete creator powerhouse.</p>
         
         <ul class="pricing-features">
           <li><strong>Everything in Starter</strong></li>
-          <li>AI Sequence Auto Cut (no manual WAV required)</li>
+          <li>Smart Punch-In (106%, 108%, 110%, 114% zooms)</li>
+          <li>Floating FX Console with global shortcut &amp; quick slots</li>
+          <li>Frame Snapshot gallery &amp; Pixel color eyedropper</li>
+          <li>32 Smart Bézier Easing Curves</li>
+          <li>Talking Head Studio (Click Zoom, Highlight &amp; Pop, PiP)</li>
+          <li>MOGRT Captions animator &amp; style restyler</li>
           <li>Waveform Drag &amp; Drop directly to timeline</li>
-          <li>Kinetic captions &amp; word-synced subtitles</li>
-          <li>Smart Ease keyframe bezier curves</li>
-          <li>AI B-Roll &amp; SFX auto-matcher</li>
-          <li>3D Studio &amp; Video Effects arsenal</li>
+          <li>AI B-Roll assembly engine &amp; stock search</li>
+          <li>Remove.bg 1-click cutout integration</li>
           <li>Priority Discord support &amp; lifetime updates</li>
         </ul>
 
@@ -1380,8 +1523,9 @@
           <li><strong>Everything in Pro Creator</strong></li>
           <li>3 Simultaneous workstation seats</li>
           <li>Commercial client project rights</li>
+          <li>MCP Bridge for external AI autonomous editing</li>
           <li>Early access to Talking Head Beta releases</li>
-          <li>Direct developer Discord access</li>
+          <li>Direct developer Discord access with Md Israfil Sharif</li>
           <li>Custom feature request priority</li>
         </ul>
 
@@ -1402,7 +1546,7 @@
     <div class="section-header">
       <div class="section-badge">FAQ</div>
       <h2>Frequently Asked Questions</h2>
-      <p class="section-sub">Everything you need to know about IsBar.</p>
+      <p class="section-sub">Clear answers on how IsBar operates.</p>
     </div>
 
     <div class="space-y-3">
@@ -1414,16 +1558,30 @@
       </details>
 
       <details class="faq-item">
-        <summary>How does the Waveform Drag &amp; Drop feature work?</summary>
+        <summary>What is Smart Punch-In and how does it work?</summary>
         <p>
-          In the Sound Design tab, you can view the audio waveform of any sound effect or music track. Use your mouse to draw a selection box around the exact section you want (or use bracket keys), then simply click and drag that box directly onto Video/Audio Track 2 in your Premiere Pro timeline.
+          In talking-head videos, constant single-angle shots feel flat. Smart Punch-In automatically applies subtle, alternating zoom scales (such as 108% or 110%) to dialogue segments between cuts. This creates natural camera variation like a multi-cam shoot without manual keyframing.
         </p>
       </details>
 
       <details class="faq-item">
-        <summary>Which versions of Premiere Pro are supported?</summary>
+        <summary>How does the Floating FX Console work in Windows?</summary>
         <p>
-          IsBar supports Adobe Premiere Pro 2024, 2025, and the latest Premiere Pro 2026. It works seamlessly on both Windows 10/11 and macOS (including Intel and Apple Silicon M1, M2, M3, and M4).
+          The FX Console is a dedicated floating search popup controlled by a global hotkey (e.g. Ctrl + `). Type the name of any installed effect to apply it instantly, use Ctrl + 1...9 quick slots for your most-used plugins, capture Program Monitor frames, or sample exact HEX colors using the built-in eyedropper.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How does the Waveform Drag &amp; Drop feature work?</summary>
+        <p>
+          In the Audio library tab, you can view the audio waveform of any sound effect or music track. Use your mouse to draw a selection box around the exact section you want (or use bracket keys), then simply click and drag that box directly onto Video/Audio Track 2 in your Premiere Pro timeline.
+        </p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is the AI B-Roll Assembly &amp; MCP Bridge?</summary>
+        <p>
+          IsBar can take an SRT subtitle file, run an AI visual planning model (via Ollama, LM Studio, or OpenRouter), find matching stock video from Pexels or FlexClip, and automatically assemble relevant B-roll on an empty video track. The MCP bridge allows external AI clients (like Claude Code or Cursor) to inspect context and trigger assembly.
         </p>
       </details>
 
@@ -1433,32 +1591,18 @@
           No! IsBar is sold as a perpetual license. You pay once and own that version forever with lifetime minor updates. There are no surprise monthly billing charges.
         </p>
       </details>
-
-      <details class="faq-item">
-        <summary>Do I need to manually export a WAV file before using Auto Cut?</summary>
-        <p>
-          No. In Premiere Pro 2025/2026, IsBar automatically exports and processes the active sequence audio in the background from 00:00. If you are on an older build or want to use a master audio track, a WAV fallback option is also available.
-        </p>
-      </details>
-
-      <details class="faq-item">
-        <summary>How do I install the extension after purchase?</summary>
-        <p>
-          Installation takes less than 60 seconds. You receive an automated installer for Windows (.exe) and macOS (.pkg) or a direct drag-and-drop CEP folder. Once installed, simply open Premiere Pro and find IsBar under Window &gt; Extensions &gt; IsBar.
-        </p>
-      </details>
     </div>
   </section>
 
   <!-- ==================== SUPPORT & COMMUNITY ==================== -->
   <section id="support">
     <div class="support-panel">
-      <div class="section-badge">Support</div>
+      <div class="section-badge">Direct Creator Support</div>
       <h2 class="text-2xl sm:text-4xl font-extrabold uppercase tracking-tight text-white mb-3">
-        Need Help or Have a Feature Idea?
+        Built by Md Israfil Sharif
       </h2>
       <p class="text-neutral-400 text-sm max-w-md mx-auto mb-6">
-        Join our dedicated Discord community to chat with other Premiere Pro editors, share presets, and get direct assistance from the developer.
+        Have questions, feedback, or a custom feature request? Join our active Discord community or reach out directly.
       </p>
       
       <div class="flex items-center justify-center gap-4 flex-wrap">
@@ -1488,17 +1632,18 @@
           <span class="logo-text">IsBar</span>
         </div>
         <p class="text-xs text-neutral-400 max-w-xs">
-          The all-in-one native Premiere Pro extension for Auto Cut, Sound Design, Kinetic Captions, and Curves.
+          The ultimate native Premiere Pro suite for Auto Cut, FX Console, 32 Curves, Presenter Studio, and AI B-Roll.
         </p>
       </div>
 
       <div class="footer-cols">
         <div class="footer-col">
-          <h4>Product</h4>
-          <a href="#mockup">Auto Cut</a>
-          <a href="#features">Sound Design</a>
-          <a href="#features">Kinetic Captions</a>
-          <a href="#pricing">Pricing</a>
+          <h4>Workspaces</h4>
+          <a href="#workspaces">Auto Cut</a>
+          <a href="#workspaces">FX Console</a>
+          <a href="#workspaces">Smart Curves</a>
+          <a href="#workspaces">Talking Head</a>
+          <a href="#workspaces">AI B-Roll</a>
         </div>
         <div class="footer-col">
           <h4>Resources</h4>
@@ -1517,8 +1662,8 @@
     </div>
 
     <div class="footer-copy">
-      <span>&copy; 2026 IsBar. All rights reserved. Not affiliated with or endorsed by Adobe Inc.</span>
-      <span>Made for video editors, by video editors.</span>
+      <span>&copy; 2026 IsBar by Md Israfil Sharif. All rights reserved. Not affiliated with or endorsed by Adobe Inc.</span>
+      <span>Engineered for video editors, by video editors.</span>
     </div>
   </footer>
 
@@ -1534,7 +1679,7 @@
       if (btn) btn.classList.add('active');
 
       // Update tab views
-      ['autocut', 'sound', 'captions', 'curves'].forEach(id => {
+      ['autocut', 'fxconsole', 'curves', 'talkinghead', 'sound'].forEach(id => {
         const el = document.getElementById('view-' + id);
         if (el) {
           if (id === tabId) {
